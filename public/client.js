@@ -2,7 +2,7 @@ function getLVideo(callbacks) {
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     var constraints = {
         audio: true,
-        video: { width: 500, height: 500 }
+        video: true
     }
     navigator.getUserMedia(constraints, callbacks.success, callbacks.error)
 
@@ -31,27 +31,13 @@ getLVideo({
 // global variables for assign local and remote
 var conn;
 var peer_id;
-var url_string = window.location.href;
-var url = new URL(url_string);
-var r = url.searchParams.get("r");
 
 // create a peer connection with peer obj or create you own using peer server docs
-var peer = new Peer({
-    config: {
-        'iceServers': [
-            { url: 'stun:stun.l.google.com:19302' },
-            { url: 'turn:homeo@turn.bistri.com:80', credential: 'homeo' }
-        ]
-    }
-});
+var peer = new Peer();
 
 // display the peer id on the DOM 
 peer.on('open', function () {
     document.getElementById("displayId").innerHTML = peer.id
-    console.log(peer.id);
-    document.getElementById('link').innerHTML = url_string + '?r=' + peer.id;
-    document.getElementById('link').href = url_string + '?r=' + peer.id;
-    console.log(url_string + '?r=' + peer.id);
 })
 
 // when a client connects to another connected client
@@ -68,23 +54,16 @@ peer.on('error', function (err) {
     console.log(err);
 })
 // onclick connection button 
-function conectar(peer_id) {
+document.getElementById('conn_button').addEventListener('click', function () {
+    peer_id = document.getElementById("connId").value;
+    // if there is a peer id, use global var to connect with current peerid
     if (peer_id) {
         conn = peer.connect(peer_id)
     } else {
         alert("enter an id");
         return false;
     }
-}
-document.getElementById('call_button').addEventListener('click', function () {
-    if (r) {
-        document.getElementById("connId").value = r;
-        peer_id = document.getElementById("connId").value;
-        // if there is a peer id, use global var to connect with current peerid
-        conectar(peer_id);
-    }
 })
-
 // call when call button is clicked
 peer.on('call', function (call) {
 
