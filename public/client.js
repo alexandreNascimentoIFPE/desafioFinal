@@ -31,13 +31,30 @@ getLVideo({
 // global variables for assign local and remote
 var conn;
 var peer_id;
+var url_string = window.location.href;
+var url = new URL(url_string);
+var room = url.searchParams.get("r");
+var urls = window.location.origin;
+console.log(room)
+
+if (room == null) {
+    document.getElementById("crt_button").style.visibility = 'none';
+    document.getElementById("conn_button").style.visibility = 'hidden';
+    document.getElementById("call_button").style.visibility = 'hidden';
+}
+else if (room != null) {
+    document.getElementById("crt_button").style.visibility = 'hidden';
+    document.getElementById("conn_button").style.visibility = 'none';
+    document.getElementById("call_button").style.visibility = 'hidden';
+}
+
 
 // create a peer connection with peer obj or create you own using peer server docs
 var peer = new Peer();
 
 // display the peer id on the DOM 
 peer.on('open', function () {
-    document.getElementById("displayId").innerHTML = peer.id
+    document.getElementById("displayId").value = peer.id
 })
 
 // when a client connects to another connected client
@@ -54,11 +71,27 @@ peer.on('error', function (err) {
     console.log(err);
 })
 // onclick connection button 
+if (document.getElementById('displayId').value !== "") {
+    document.getElementById('crt_button').addEventListener('click', function () {
+        document.getElementById('link').href = urls + '?r=' + document.getElementById('displayId').value;
+        document.getElementById('link').innerHTML = urls + '?r=' + document.getElementById('displayId').value;
+        document.getElementById('conn_button').style.visibility = 'hidden';
+        document.getElementById('call_button').style.visibility = 'hidden';
+        document.getElementById('crt_button').style.visibility = 'hidden';
+    })
+}
+
+
+
 document.getElementById('conn_button').addEventListener('click', function () {
-    peer_id = document.getElementById("connId").value;
+    if (room) {
+        document.getElementById('connId').value = room;
+    }
+    document.getElementById('conn_button').style.visibility = 'hidden';
+    var idCli = document.getElementById("connId").value;
     // if there is a peer id, use global var to connect with current peerid
-    if (peer_id) {
-        conn = peer.connect(peer_id)
+    if (idCli) {
+        conn = peer.connect(idCli)
     } else {
         alert("enter an id");
         return false;
