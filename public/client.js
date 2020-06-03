@@ -86,6 +86,7 @@ document.getElementById('conn_button').addEventListener('click', function () {
         document.getElementById('connId').value = room;
     }
     document.getElementById('conn_button').style.visibility = 'hidden';
+    document.getElementById('call_button').style.visibility = 'none';
     var idCli = document.getElementById("connId").value;
     // if there is a peer id, use global var to connect with current peerid
     if (idCli) {
