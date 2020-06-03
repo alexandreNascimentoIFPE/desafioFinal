@@ -49,7 +49,6 @@ var peer = new Peer({
 peer.on('open', function () {
     document.getElementById("displayId").innerHTML = peer.id
     console.log(peer.id);
-    console.log(url.searchParams);
     document.getElementById('link').innerHTML = url_string + '?r=' + peer.id;
     document.getElementById('link').href = url_string + '?r=' + peer.id;
     console.log(url_string + '?r=' + peer.id);
@@ -69,15 +68,19 @@ peer.on('error', function (err) {
     console.log(err);
 })
 // onclick connection button 
-if (r) {
-    document.getElementById("connId").value = r;
-    peer_id = document.getElementById("connId").value;
-    // if there is a peer id, use global var to connect with current peerid
+function conectar(peer_id) {
     if (peer_id) {
         conn = peer.connect(peer_id)
     } else {
         alert("enter an id");
+        return false;
     }
+}
+if (r) {
+    document.getElementById("connId").value = r;
+    peer_id = document.getElementById("connId").value;
+    // if there is a peer id, use global var to connect with current peerid
+    conectar(peer_id);
 }
 // call when call button is clicked
 peer.on('call', function (call) {
