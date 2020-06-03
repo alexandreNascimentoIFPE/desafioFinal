@@ -71,15 +71,13 @@ peer.on('error', function (err) {
     console.log(err);
 })
 // onclick connection button 
-if (document.getElementById('displayId').value !== "") {
-    document.getElementById('crt_button').addEventListener('click', function () {
-        document.getElementById('link').href = urls + '?r=' + document.getElementById('displayId').value;
-        document.getElementById('link').innerHTML = urls + '?r=' + document.getElementById('displayId').value;
-        document.getElementById('conn_button').style.visibility = 'hidden';
-        document.getElementById('call_button').style.visibility = 'hidden';
-        document.getElementById('crt_button').style.visibility = 'hidden';
-    })
-}
+document.getElementById('crt_button').addEventListener('click', function () {
+    document.getElementById('link').href = urls + '?r=' + document.getElementById('displayId').value;
+    document.getElementById('link').innerHTML = urls + '?r=' + document.getElementById('displayId').value;
+    document.getElementById('conn_button').style.visibility = 'hidden';
+    document.getElementById('call_button').style.visibility = 'hidden';
+    document.getElementById('crt_button').style.visibility = 'hidden';
+})
 
 
 
