@@ -38,13 +38,13 @@ var urls = window.location.origin;
 console.log(room)
 
 if (room == null) {
-    document.getElementById("crt_button").style.visibility = 'none';
+    document.getElementById("crt_button").style.visibility = 'visible';
     document.getElementById("conn_button").style.visibility = 'hidden';
     document.getElementById("call_button").style.visibility = 'hidden';
 }
 else if (room != null) {
     document.getElementById("crt_button").style.visibility = 'hidden';
-    document.getElementById("conn_button").style.visibility = 'none';
+    document.getElementById("conn_button").style.visibility = 'visible';
     document.getElementById("call_button").style.visibility = 'hidden';
 }
 
@@ -74,8 +74,6 @@ peer.on('error', function (err) {
 document.getElementById('crt_button').addEventListener('click', function () {
     document.getElementById('link').href = urls + '?r=' + document.getElementById('displayId').value;
     document.getElementById('link').innerHTML = urls + '?r=' + document.getElementById('displayId').value;
-    document.getElementById('conn_button').style.visibility = 'hidden';
-    document.getElementById('call_button').style.visibility = 'hidden';
     document.getElementById('crt_button').style.visibility = 'hidden';
 })
 
@@ -86,7 +84,7 @@ document.getElementById('conn_button').addEventListener('click', function () {
         document.getElementById('connId').value = room;
     }
     document.getElementById('conn_button').style.visibility = 'hidden';
-    document.getElementById('call_button').style.visibility = 'none';
+    document.getElementById('call_button').style.visibility = 'visible';
     var idCli = document.getElementById("connId").value;
     // if there is a peer id, use global var to connect with current peerid
     if (idCli) {
