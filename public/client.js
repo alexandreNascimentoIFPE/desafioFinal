@@ -76,12 +76,15 @@ function conectar(peer_id) {
         return false;
     }
 }
-if (r) {
-    document.getElementById("connId").value = r;
-    peer_id = document.getElementById("connId").value;
-    // if there is a peer id, use global var to connect with current peerid
-    conectar(peer_id);
-}
+document.getElementById('call_button').addEventListener('click', function () {
+    if (r) {
+        document.getElementById("connId").value = r;
+        peer_id = document.getElementById("connId").value;
+        // if there is a peer id, use global var to connect with current peerid
+        conectar(peer_id);
+    }
+})
+
 // call when call button is clicked
 peer.on('call', function (call) {
 
